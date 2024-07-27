@@ -136,6 +136,7 @@ export type SwapContextType = {
   isTransactionPending: boolean;
   handleSubmit: (
     onError?: (error: SwapError) => void,
+    onStart?: (txHash: string) => void | Promise<void>,
     onSuccess?: (txReceipt: TransactionReceipt) => void | Promise<void>,
   ) => void;
   handleToggle: () => void;

@@ -1,4 +1,3 @@
-
 import type { Config } from 'wagmi';
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import type { SendTransactionMutateAsync } from 'wagmi/query';

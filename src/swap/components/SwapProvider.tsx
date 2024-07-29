@@ -5,7 +5,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import type { Address, } from 'viem';
+import type { Address } from 'viem';
 import { type BaseError, useConfig, useSendTransaction } from 'wagmi';
 import { formatTokenAmount } from '../../internal/utils/formatTokenAmount';
 import type { Token } from '../../token';

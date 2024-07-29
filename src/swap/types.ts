@@ -132,9 +132,7 @@ export type SwapContextType = {
   to: SwapUnit;
   loading: boolean;
   isTransactionPending: boolean;
-  handleSubmit: (
-    onStatus?: SwapHooks,
-  ) => void;
+  handleSubmit: (onStatus?: SwapHooks) => void;
   handleToggle: () => void;
   handleAmountChange: (
     t: 'from' | 'to',

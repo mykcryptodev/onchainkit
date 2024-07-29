@@ -141,7 +141,7 @@ export function SwapProvider({
 
   const handleSubmit = useCallback(
     // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: TODO Refactor this component
-    async function handleSubmit(onStatus: SwapHooks) {
+    async function handleSubmit(onStatus: SwapHooks = {}) {
       if (!address || !from.token || !to.token || !from.amount) {
         return;
       }

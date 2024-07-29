@@ -6,9 +6,7 @@ import { useSwapContext } from './SwapProvider';
 export function SwapButton({
   className,
   disabled = false,
-  onError,
-  onStart,
-  onSuccess,
+  onStatus: { onError, onStart, onSuccess } = {},
 }: SwapButtonReact) {
   const { to, from, loading, isTransactionPending, handleSubmit } =
     useSwapContext();

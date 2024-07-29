@@ -186,7 +186,7 @@ export function SwapProvider({
             },
           });
         } else {
-          onError?.(e as SwapError);
+          onStatus.onError?.(e as SwapError);
           handleError({ swapError: e as SwapError });
         }
       } finally {

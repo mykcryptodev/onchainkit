@@ -115,8 +115,10 @@ describe('processSwapTransaction', () => {
       setPendingTransaction,
       setLoading,
       sendTransactionAsync,
-      onSuccess,
-      onStart,
+      onStatus: {
+        onStart,
+        onSuccess,
+      },
     });
 
     expect(setPendingTransaction).toHaveBeenCalledTimes(4);
@@ -208,8 +210,10 @@ describe('processSwapTransaction', () => {
       setPendingTransaction,
       setLoading,
       sendTransactionAsync,
-      onSuccess,
-      onStart,
+      onStatus: {
+        onStart,
+        onSuccess,
+      },
     });
 
     expect(setPendingTransaction).toHaveBeenCalledTimes(2);
@@ -302,8 +306,10 @@ describe('processSwapTransaction', () => {
       setPendingTransaction,
       setLoading,
       sendTransactionAsync: sendTransactionAsync2,
-      onSuccess: onSuccessAsync,
-      onStart: onStartAsync,
+      onStatus: {
+        onStart: onStartAsync,
+        onSuccess: onSuccessAsync,
+      },
     });
 
     expect(setPendingTransaction).toHaveBeenCalledTimes(4);

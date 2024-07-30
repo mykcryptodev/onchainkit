@@ -5,7 +5,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import type { Address, TransactionReceipt } from 'viem';
+import type { Address } from 'viem';
 import { type BaseError, useConfig, useSendTransaction } from 'wagmi';
 import { formatTokenAmount } from '../../internal/utils/formatTokenAmount';
 import type { Token } from '../../token';
@@ -141,11 +141,7 @@ export function SwapProvider({
 
   const handleSubmit = useCallback(
     // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: TODO Refactor this component
-    async function handleSubmit(
-      onError?: (error: SwapError) => void,
-      onSuccess?: (txReceipt: TransactionReceipt) => void | Promise<void>,
-      onStatus?: SwapHooks,
-    ) {
+    async function handleSubmit(onStatus: SwapHooks = {}) {
       if (!address || !from.token || !to.token || !from.amount) {
         return;
       }
@@ -172,7 +168,6 @@ export function SwapProvider({
           setPendingTransaction,
           setLoading,
           sendTransactionAsync,
-          onSuccess,
           onStatus,
         });
 
@@ -191,8 +186,7 @@ export function SwapProvider({
             },
           });
         } else {
-          onError?.(e as SwapError);
-          onStatus?.onError?.(e as SwapError);
+          onStatus.onError?.(e as SwapError);
           handleError({ swapError: e as SwapError });
         }
       } finally {

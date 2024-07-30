@@ -1,4 +1,4 @@
-import type { TransactionExecutionError } from 'viem';
+import type { Address, TransactionExecutionError } from 'viem';
 import { useWriteContract as useWriteContractWagmi } from 'wagmi';
 import type { TransactionError } from '../types';
 import { genericErrorMessage } from './useWriteContracts';
@@ -6,7 +6,8 @@ import { genericErrorMessage } from './useWriteContracts';
 type UseWriteContractParams = {
   onError?: (e: TransactionError) => void;
   setErrorMessage: (error: string) => void;
-  setTransactionId: (id: string) => void;
+  setTransactionHashArray: (ids: Address[]) => void;
+  transactionHashArray?: Address[];
 };
 
 const uncaughtErrorCode = 'UNCAUGHT_WRITE_TRANSACTION_ERROR';
@@ -20,7 +21,8 @@ const errorCode = 'WRITE_TRANSACTION_ERROR';
 export function useWriteContract({
   onError,
   setErrorMessage,
-  setTransactionId,
+  setTransactionHashArray,
+  transactionHashArray,
 }: UseWriteContractParams) {
   try {
     const { status, writeContractAsync, data } = useWriteContractWagmi({
@@ -36,8 +38,10 @@ export function useWriteContract({
           }
           onError?.({ code: errorCode, error: e.message });
         },
-        onSuccess: (id) => {
-          setTransactionId(id);
+        onSuccess: (hash: Address) => {
+          setTransactionHashArray(
+            transactionHashArray ? transactionHashArray?.concat(hash) : [hash],
+          );
         },
       },
     });

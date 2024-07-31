@@ -277,7 +277,7 @@ const wagmiConfig = getDefaultConfig({ // [!code focus]
   ssr: true, // If your dApp uses server side rendering (SSR)
 }); // [!code focus]
 
-function OnchainProviders({ children }: Props) {
+function OnchainProviders({ children }: { children: ReactNode }) {
   return (
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>

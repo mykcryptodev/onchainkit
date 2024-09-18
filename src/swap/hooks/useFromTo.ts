@@ -7,8 +7,10 @@ import { useSwapBalances } from './useSwapBalances';
 
 export const useFromTo = (address?: Address): FromTo => {
   const [fromAmount, setFromAmount] = useState('');
+  const [fromAmountUsd, setFromAmountUsd] = useState('');
   const [fromToken, setFromToken] = useState<Token>();
   const [toAmount, setToAmount] = useState('');
+  const [toAmountUsd, setToAmountUsd] = useState('');
   const [toToken, setToToken] = useState<Token>();
   const [toLoading, setToLoading] = useState(false);
   const [fromLoading, setFromLoading] = useState(false);
@@ -27,6 +29,8 @@ export const useFromTo = (address?: Address): FromTo => {
     balanceResponse: fromTokenResponse,
     amount: fromAmount,
     setAmount: setFromAmount,
+    amountUsd: fromAmountUsd,
+    setAmountUsd: setFromAmountUsd,
     token: fromToken,
     setToken: setFromToken,
     loading: fromLoading,
@@ -39,6 +43,8 @@ export const useFromTo = (address?: Address): FromTo => {
     balanceResponse: toTokenResponse,
     amount: toAmount,
     setAmount: setToAmount,
+    amountUsd: toAmountUsd,
+    setAmountUsd: setToAmountUsd,
     token: toToken,
     setToken: setToToken,
     loading: toLoading,

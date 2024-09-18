@@ -105,6 +105,11 @@ export function SwapAmountInput({
         )}
       </div>
       <div className="mt-4 flex w-full justify-between">
+        {source.amountUsd && (
+          <span
+            className={cn(text.label2, color.foregroundMuted)}
+          >{`~$${getRoundedAmount(source.amountUsd, 8)}`}</span>
+        )}
         <span className={cn(text.label2, color.foregroundMuted)}>{''}</span>
         <div className="flex items-center">
           {source.balance && (

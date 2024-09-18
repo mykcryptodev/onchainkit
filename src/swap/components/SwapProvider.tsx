@@ -251,6 +251,21 @@ export function SwapProvider({
             isMissingRequiredField: !formattedAmount,
           },
         });
+        // prevent rate limits by fetching USD amounts after a delay
+        setTimeout(() => {
+          fetchAmountUsd({
+            token: response.to,
+            amount: response.toAmount,
+            setAmountUsd: destination.setAmountUsd,
+          });
+        }, 1500);
+        setTimeout(() => {
+          fetchAmountUsd({
+            token: response.from,
+            amount: response.fromAmount,
+            setAmountUsd: source.setAmountUsd,
+          });
+        }, 3000);
       } catch (err) {
         updateLifecycleStatus({
           statusName: 'error',
@@ -267,6 +282,42 @@ export function SwapProvider({
     },
     [from, to, lifecycleStatus, updateLifecycleStatus, useAggregator],
   );
+
+  const fetchAmountUsd = async ({
+    token,
+    amount,
+    setAmountUsd,
+  }: {
+    token: Token;
+    amount: string;
+    setAmountUsd: React.Dispatch<React.SetStateAction<string>>;
+  }) => {
+    // reset the USD amounts
+    setAmountUsd('');
+
+    const USDC: Token = {
+      address: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      decimals: 6,
+      symbol: "USDC",
+      chainId: 8453,
+      image: "",
+      name: "USDC",
+    };
+
+    const toUsdQuote = await getSwapQuote({
+      amount: formatTokenAmount(amount, token.decimals),
+      from: token,
+      to: USDC,
+      useAggregator,
+      maxSlippage: "0",
+    });
+
+    console.log({ toUsdQuote });
+
+    if (!isSwapError(toUsdQuote)) {
+      setAmountUsd(formatTokenAmount(toUsdQuote.toAmount, toUsdQuote.to.decimals));
+    }
+  };
 
   const handleSubmit = useCallback(async () => {
     if (!address || !from.token || !to.token || !from.amount) {

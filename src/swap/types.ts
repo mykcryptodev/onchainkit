@@ -325,11 +325,13 @@ export type SwapToggleButtonReact = {
 
 export type SwapUnit = {
   amount: string;
+  amountUsd: string;
   balance?: string;
   balanceResponse?: UseBalanceReturnType | UseReadContractReturnType;
   error?: SwapError;
   loading: boolean;
   setAmount: Dispatch<SetStateAction<string>>;
+  setAmountUsd: Dispatch<SetStateAction<string>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
   setToken: Dispatch<SetStateAction<Token | undefined>>;
   token: Token | undefined;
